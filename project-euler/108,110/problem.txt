@@ -1,0 +1,4 @@
+See http://projecteuler.net/index.php?section=problems&id=108
+
+I accidentally solved both 108 and 110, good for me
+
