@@ -1,0 +1,5 @@
+http://projecteuler.net/index.php?section=problems&id=66
+
+
+The correct solution is in Main.lhs file. main.py and Main.hs both don't work
+
