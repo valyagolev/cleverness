@@ -32,9 +32,10 @@ Let's start with naive approach:
 
 It takes too long to compute even with |max_d = 10000|.
 
-\section{Generaling fraction_list}
+\section{Generalizing |fraction_list|}
 
-Let's generalize |fraction_list| by allowing to supply our own function which's going to return $\forall x: { x : GCD(x, n) = 1, x < n}$:
+Let's generalize |fraction_list| by allowing to supply our own function
+which's going to return $\forall x: { x : GCD(x, n) = 1, x < n}$:
 
 > fraction_list :: (a -> Int -> [Int]) -> a -> [(Int, Int)]
 > fraction_list genr c = do d <- [1..max_d]
@@ -60,14 +61,13 @@ Another approach is to factorize $n$:
 
 > fr_list = fraction_list genr_factor (sieve max_d)
 
-< main :: IO()
-< main = print $ fraction_list genr_factor (sieve max_d)
+
 
 The new appoarch becoming faster with large $n$'s ($n=800$ shows better results). But 11 seconds are way too long!
 
 We can try to optimize |genr_factor| further by constructing a sieve, but I have a nicer idea.
 
-\section{Euler' Function}
+\section{Euler's Function}
 
 What we need is a count of pairs $(n, d)$, where $y <= d_max, x < y, gcd(x, y) == 1$.
 We have a nice $\varphi(d)$ function, which is basically what we need but for some concrete $d$.
@@ -82,7 +82,7 @@ P(d) = { (n, d) : n <= d, gcd(n, d) == 1 }
 If we have $d_1$ and $d_2$ ($d_1$ != $d_2$), then $P(d_1) \cap P(d_2) = \varnothing$, because in every pair the greater number is second and it's different for both sets. That means that we can just add $\varphi(d_1)$ to $\varphi(d_2)$, or:
 
 \[
-|P(1) \cup \P(2) \cup ... \cup P(n)| = \varphi(1) + ... + \varphi(n)
+||P(1) \cup P(2) \cup ... \cup P(n)|| = \varphi(1) + ... + \varphi(n)
 \]
 
 Let's write it down is Haskell:
