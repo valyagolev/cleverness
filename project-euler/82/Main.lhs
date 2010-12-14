@@ -28,7 +28,7 @@ This is a problem 82 from Project Euler.
 Program is going to read a matrix of integers from stdin:
 
 > unrow :: String -> [String]
-> unrow s = let (l, s') = break (`elem` [',', ' ']) s
+> unrow s = let (l, s') = break (`elem` [',', ' ', '\t']) s
 >           in l : case s' of
 >                       [] -> []
 >                       (_:s'') -> unrow s''
@@ -52,7 +52,7 @@ Program is going to read a matrix of integers from stdin:
 \section{Solution}
 
 
-> minimalSum mt =  minimumBy (comparing snd) $ map (\i -> minimalSumFromPos (i, 0) [] mt) [0..length mt - 1]
+< minimalSum mt =  minimumBy (comparing snd) $ map (\i -> minimalSumFromPos (i, 0) [] mt) [0..length mt - 1]
 
 > minimalSumFromPos :: Point -> Path -> [[Int]] -> (Path, Int)
 > minimalSumFromPos (x, y) _ mt | y == length mt - 1 = ([(x, y)], (mt !! x) !! y)
@@ -74,5 +74,27 @@ Program is going to read a matrix of integers from stdin:
 Okay, that's pretty slow. Let's try dynamic programming.
 
 \section{Dynamic Programming}
+
+Because formula for solutions with starting cells from the same columns are mutually recursive, we will pre-calculate every column, starting from the most right, and calculate each cell there independently. | minimalSumsForColumn |, called with current column values and minimal sums for the column right from this one, returns minimal sum for each cell in this very column:
+
+> minimalSumsForColumn :: [Int] -> [Int] -> [Int]
+> minimalSumsForColumn current next = map (minimalSum []) [0..size - 1]
+>                      where size = length current
+>                            minimalSum visited i = (current !! i) + minimum (avaiables visited i)
+>                            avaiables vs i = catMaybes [up vs i, down vs i, right vs i]
+>                            up vs i | i < 1 = Nothing
+>                            up vs i | i `elem` vs = Nothing
+>                            up vs i = Just $ minimalSum (i:vs) (i - 1)
+>                            down vs i | i >= size - 1 = Nothing
+>                            down vs i | i `elem` vs = Nothing
+>                            down vs i = Just $ minimalSum (i:vs) (i + 1)
+>                            right vs i = Just $ next !! i
+
+> minimalSumsForMatrix :: [[Int]] -> [Int]
+> minimalSumsForMatrix mt = foldr minimalSumsForColumn (last mt) (init mt)
+
+> minimalSum mt = minimum $ minimalSumsForMatrix (transpose mt)
+
+Runs interpreted for 14 seconds - cool, ya? Or 1.8 seconds if compiled with -O3.
 
 \end{document}
