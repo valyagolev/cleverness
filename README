@@ -1,1 +1,5 @@
 Here will be puzzles I solve. Just to keep track.
+
+Solution almost every puzzle written in bad-ass Literate Haskell.
+
+$ lhs2TeX -o Main.tex Main.lhs && pdflatex Main.tex && xdg-open Main.pdf
