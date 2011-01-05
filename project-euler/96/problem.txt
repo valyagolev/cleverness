@@ -1,0 +1,4 @@
+http://projecteuler.net/index.php?section=problems&id=96
+
+An attempt to solve a problem with C++
+
