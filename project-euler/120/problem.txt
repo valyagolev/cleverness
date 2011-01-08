@@ -1,0 +1,52 @@
+http://projecteuler.net/index.php?section=problems&id=120
+
+
+(a - 1)^n + (a + 1)^n \equiv r (mod a^2)
+
+
+$(a - 1)^n = {n\choose 0}a^n - {n\choose 1}a^{n-1} + \dots + {n\choose k}a^{n-k}(-1)^{k} + \dots + {n\choose n}(-1)^n$
+
+$(a + 1)^n = {n\choose 0}a^n + {n\choose 1}a^{n-1} + \dots + {n\choose k}a^{n-k} + \dots + {n\choose n}$
+
+$(a - 1)^n + (a + 1)^n = 2*{n\choose 0}a^n + 2*{n\choose 2}a^{n-2} + \dots$
+
+(every second term)
+
+if $ n \vdots 2 $, then 
+
+$(a - 1)^n + (a + 1)^n = 2*{n\choose 0}a^n + 2*{n\choose 2}a^{n-2} + \dots + 2*{n\choose n-2}a^2 + 2*{n\choose n}$
+
+since $n, n-2, ..., 2 \vdots 2$
+
+$(a - 1)^n + (a + 1)^n \equiv 2*{n\choose n} (mod a^2)$
+
+$(a - 1)^n + (a + 1)^n \equiv 2 (mod a^2)$
+
+else:
+
+$(a - 1)^n + (a + 1)^n = 2*{n\choose 0}a^n + 2*{n\choose 2}a^{n-2} + \dots + 2*{n\choose n-3}a^3 + 2*{n\choose n-1}a$
+
+$(a - 1)^n + (a + 1)^n \equiv 2*{n\choose n-1}a (mod a^2)$
+
+$(a - 1)^n + (a + 1)^n \equiv 2*n*a (mod a^2)$
+
+since $a,n \in N$, $2*n*a > 2$, so we need $\not n \vdots 2$ and $max (2na) (mod a^2)$
+
+$r \in \{2a, 4a, 6a, \dots\}$
+
+if $a \vdots 2$, $a = 2m$:
+
+$r \in \{2a, 4a, 6a, \dots, 2ma, \dots\}$
+
+$mod r \in \{2a, 4a, 6a, \dots, 2(m - 1)a, 0, 2a, \dots\}$
+
+$max r = 2(m - 1)a$
+
+else, $a = 2m + 1$:
+
+$r \in \{2a, 4a, 6a, \dots, 2ma, (2m + 2)a, \dots, 4ma, (4m + 2)a, \dots\}$
+
+$mod r \in \{2a, 4a, 6a, \dots, 2ma, a, 3a, \dots, (2m - 1)a, 0, 2a, \dots\}$
+
+$max r = 2ma$
+
