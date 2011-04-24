@@ -6,3 +6,8 @@
 *.o
 *.hi
 *.out
+jam/africa2011/A/solution-large.txt
+jam/africa2011/A/solution-small.txt
+jam/africa2011/A/solution-small2.txt
+jam/africa2011/A/test-output-should.txt
+jam/africa2011/A/test-output.txt
